@@ -43,7 +43,7 @@ export default async function AdminProducts() {
               </tr>
             </thead>
             <tbody>
-              {products.map((p: Product) => (
+              {products.map((p: any) => (
                 <tr
                   key={p.id}
                   className="border-t border-slate-200 hover:bg-slate-50"
