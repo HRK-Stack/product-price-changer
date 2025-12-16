@@ -3,18 +3,19 @@ import Image from 'next/image'
 import { PriceInput } from './PriceInput'
 import { AddProduct } from './AddProduct'
 
-// Infer Product type from prisma.product.findMany
+// Infer Product type from prisma query
 type Product = Awaited<ReturnType<typeof prisma.product.findMany>>[number]
 
 export default async function AdminProducts() {
-  const products = await prisma.product.findMany({
+  // products is strongly typed
+  const products: Product[] = await prisma.product.findMany({
     orderBy: { name: 'asc' },
   })
 
   return (
     <main className="min-h-screen bg-slate-100">
       <div className="max-w-6xl mx-auto px-4 py-6">
-        {/* Page Header */}
+        {/* Header */}
         <header className="mb-6">
           <h1 className="text-xl font-semibold text-slate-900">
             Product Management
@@ -24,7 +25,7 @@ export default async function AdminProducts() {
           </p>
         </header>
 
-        {/* Add Product Form */}
+        {/* Add Product */}
         <section className="mb-6">
           <AddProduct />
         </section>
@@ -43,7 +44,7 @@ export default async function AdminProducts() {
               </tr>
             </thead>
             <tbody>
-              {products.map((p: any) => (
+              {products.map((p) => (
                 <tr
                   key={p.id}
                   className="border-t border-slate-200 hover:bg-slate-50"
@@ -78,7 +79,7 @@ export default async function AdminProducts() {
 
         {/* Mobile Cards */}
         <section className="grid gap-5 sm:hidden">
-          {products.map((p: Product) => (
+          {products.map((p) => (
             <div
               key={p.id}
               className="bg-white border border-slate-300 rounded-lg p-4"
