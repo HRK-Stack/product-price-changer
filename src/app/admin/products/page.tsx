@@ -1,10 +1,11 @@
 import { prisma } from '@/lib/prisma'
+import type { Product } from '@prisma/client'
 import Image from 'next/image'
 import { PriceInput } from './PriceInput'
 import { AddProduct } from './AddProduct'
 
 export default async function AdminProducts() {
-  const products = await prisma.product.findMany({
+  const products: Product[] = await prisma.product.findMany({
     orderBy: { name: 'asc' },
   })
 
