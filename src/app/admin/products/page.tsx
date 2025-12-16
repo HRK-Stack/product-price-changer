@@ -1,8 +1,11 @@
 import { prisma } from '@/lib/prisma'
-import type { Product } from '@prisma/client'
 import Image from 'next/image'
 import { PriceInput } from './PriceInput'
 import { AddProduct } from './AddProduct'
+
+type Product = Awaited<
+  ReturnType<typeof prisma.product.findMany>
+>[number]
 
 export default async function AdminProducts() {
   const products: Product[] = await prisma.product.findMany({
