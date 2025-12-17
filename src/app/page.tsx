@@ -2,8 +2,11 @@ import { prisma } from '@/lib/prisma'
 import Image from 'next/image'
 import Link from 'next/link'
 
+type Product = Awaited<ReturnType<typeof prisma.product.findMany>>[number]
+
 export default async function PriceListPage() {
-  const products = await prisma.product.findMany({
+  
+  const products: Product[] = await prisma.product.findMany({
     where: { isActive: true },
     orderBy: { name: 'asc' },
   })
